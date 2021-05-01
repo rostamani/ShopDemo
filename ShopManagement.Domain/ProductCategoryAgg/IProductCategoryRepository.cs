@@ -15,5 +15,7 @@ namespace ShopManagement.Domain.ProductCategoryAgg
 
         EditProductCategory GetDetails(long id);
 
+        List<SelectProductCategory> GetCategories();
+
     }
 }

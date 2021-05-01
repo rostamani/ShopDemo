@@ -13,5 +13,7 @@ namespace ShopManagement.Application.Contracts.ProductAgg
         public string Picture { get; set; }
         public long CategoryId { get; set; }
         public string Category { get; set; }
+        public string CreationDate { get; set; }
+        public bool IsInStuck { get; set; }
     }
 }

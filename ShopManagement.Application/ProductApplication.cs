@@ -64,6 +64,7 @@ namespace ShopManagement.Application
                 return operationResult.Failed(QueryValidationMessage.NotFound);
             }
             product.InStuck();
+            _productRepository.SaveChanges();
             return operationResult.Succeeded();
         }
 
@@ -76,6 +77,7 @@ namespace ShopManagement.Application
                 return operationResult.Failed(QueryValidationMessage.NotFound);
             }
             product.NotInStuck();
+            _productRepository.SaveChanges();
             return operationResult.Succeeded();
         }
 

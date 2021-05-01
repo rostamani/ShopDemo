@@ -53,5 +53,13 @@ namespace ShopManagement.Infrastructure.Repository
             }).FirstOrDefault(p => p.Id == id);
         }
 
+        public List<SelectProductCategory> GetCategories()
+        {
+            return _db.ProductCategories.Select(c => new SelectProductCategory()
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();
+        }
     }
 }

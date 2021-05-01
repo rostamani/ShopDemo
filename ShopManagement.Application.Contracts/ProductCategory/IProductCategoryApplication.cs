@@ -15,5 +15,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
 
         EditProductCategory GetDetails(long id);
 
+        List<SelectProductCategory> GetCategories();
+
     }
 }

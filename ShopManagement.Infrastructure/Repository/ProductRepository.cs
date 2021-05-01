@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using _0_Framework.Domain;
 using _0_Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.ProductAgg;
@@ -27,7 +28,10 @@ namespace ShopManagement.Infrastructure.Repository
                 CategoryId = p.CategoryId,
                 Picture = p.Picture,
                 UnitPrice=p.UnitPrice,
-                Code = p.Code
+                Code = p.Code,
+                CreationDate = p.CreationDate.ToPersianDate(),
+                IsInStuck  = p.IsInStuck,
+                Name = p.Name
             });
 
             if (searchModel.CategoryId!=0)
