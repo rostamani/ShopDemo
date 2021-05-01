@@ -50,7 +50,7 @@ namespace ShopManagement.Infrastructure.Repository
             }
 
 
-            return query.OrderByDescending(p => p.CategoryId).ThenBy(p=>p.Id).ToList();
+            return query.OrderByDescending(p => p.CategoryId).ThenBy(p=>p.Id).AsNoTracking().ToList();
         }
 
         public EditProduct GetDetails(long id)

@@ -6,6 +6,7 @@ using System.Text;
 using _0_Framework.Application;
 using _0_Framework.Domain;
 using _0_Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Domain.ProductCategoryAgg;
 
@@ -34,7 +35,7 @@ namespace ShopManagement.Infrastructure.Repository
                 query = query.Where(c => c.Name.Contains(searchModel.Name));
             }
 
-            return query.OrderByDescending(p => p.Id).ToList();
+            return query.OrderByDescending(p => p.Id).AsNoTracking().ToList();
         }
 
         public EditProductCategory GetDetails(long id)
@@ -59,7 +60,7 @@ namespace ShopManagement.Infrastructure.Repository
             {
                 Id = c.Id,
                 Name = c.Name
-            }).ToList();
+            }).AsNoTracking().ToList();
         }
     }
 }
