@@ -37,5 +37,16 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.ProductCategory
             var result=_productCategoryApplication.Create(command);
             return new JsonResult(result);
         }
+
+        public IActionResult OnGetEdit(long id)
+        {
+            return Partial("Edit", _productCategoryApplication.GetDetails(id));
+        }
+
+        public IActionResult OnPostEdit(EditProductCategory command)
+        {
+            var result = _productCategoryApplication.Edit(command);
+            return new JsonResult(result);
+        }
     }
 }
