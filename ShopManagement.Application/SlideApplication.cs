@@ -39,7 +39,7 @@ namespace ShopManagement.Application
             {
                 return result.Failed(QueryValidationMessage.NotFound);
             }
-            if (_slideRepository.Exists(s => s.Picture == command.Picture))
+            if (_slideRepository.Exists(s => s.Picture == command.Picture && s.Id!=command.Id))
             {
                 return result.Failed(QueryValidationMessage.DuplicateRecord);
             }

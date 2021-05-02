@@ -25,7 +25,9 @@ namespace ShopManagement.Infrastructure.Repository
             {
                 Id = p.Id,
                 Heading = p.Heading,
-                Picture = p.Picture
+                Picture = p.Picture,
+                Title = p.Title,
+                IsRemoved = p.IsRemoved
             }).AsNoTracking().ToList();
         }
 
