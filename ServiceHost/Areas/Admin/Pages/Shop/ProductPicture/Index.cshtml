@@ -63,13 +63,13 @@
                                         <td>@item.Product</td>
                                         <td>@item.CreationDate</td>
                                         <td class="text-center">
-                                            @if (item.IsRemoved)
+                                            @if (item.IsRemoved==false)
                                             {
-                                                <i class="fa fa-check  text-success"></i>
+                                                <i class="fa fa-check  fa-2x  text-success"></i>
                                             }
                                             else
                                             {
-                                                <i class="fa fa-remove fa-3x text-danger"></i>
+                                                <i class="fa fa-remove fa-2x text-danger"></i>
                                             }
                                         </td>
                                         <td>@item.CreationDate</td>
@@ -78,7 +78,7 @@
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                            @if (item.IsRemoved)
+                                            @if (item.IsRemoved==false)
                                             {
                                                 <a class="btn btn-danger btn-custom waves-effect waves-light m-b-5" asp-page-handler="Remove" asp-route-id="@item.Id">غیر فعالسازی</a>
                                             }
