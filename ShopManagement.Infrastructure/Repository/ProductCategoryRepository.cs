@@ -23,11 +23,13 @@ namespace ShopManagement.Infrastructure.Repository
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
         {
-            var query = _db.ProductCategories.Select(p => new ProductCategoryViewModel
+            var query = _db.ProductCategories.Include(c=>c.Products).Select(p => new ProductCategoryViewModel
             {
                 Name = p.Name,
                 Id = p.Id,
-                CreationDate = p.CreationDate.ToPersianDate()
+                CreationDate = p.CreationDate.ToPersianDate(),
+                Picture = p.Picture,
+                ProductsCount = p.Products.Count
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
