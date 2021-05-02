@@ -25,6 +25,7 @@ namespace ShopManagement.Infrastructure.Mapping
             builder.Property(p => p.Slug).HasMaxLength(300).IsRequired();
 
             builder.HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId);
+            builder.HasMany(p => p.ProductPictures).WithOne(p => p.Product).HasForeignKey(p => p.ProductId);
         }
     }
 }
