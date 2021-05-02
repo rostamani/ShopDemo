@@ -78,7 +78,7 @@ namespace ShopManagement.Infrastructure.Repository
                 UnitPrice = p.UnitPrice,
                 ShortDescription = p.ShortDescription,
                 Description = p.Description
-            }).FirstOrDefault(p => p.Id == id);
+            }).AsNoTracking().FirstOrDefault(p => p.Id == id);
         }
     }
 }

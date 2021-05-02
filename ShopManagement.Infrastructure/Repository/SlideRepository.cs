@@ -44,7 +44,7 @@ namespace ShopManagement.Infrastructure.Repository
                 PictureAlt = s.PictureAlt,
                 PictureTitle = s.PictureTitle,
                 Link = s.Link
-            }).FirstOrDefault(s => s.Id == id);
+            }).AsNoTracking().FirstOrDefault(s => s.Id == id);
         }
     }
 }

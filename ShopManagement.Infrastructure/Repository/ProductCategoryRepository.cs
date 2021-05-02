@@ -53,7 +53,7 @@ namespace ShopManagement.Infrastructure.Repository
                 Picture = p.Picture,
                 PictureTitle = p.PictureTitle,
                 PictureAlt = p.PictureAlt,
-            }).FirstOrDefault(p => p.Id == id);
+            }).AsNoTracking().FirstOrDefault(p => p.Id == id);
         }
 
         public List<SelectProductCategory> GetCategories()
