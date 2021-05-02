@@ -27,7 +27,8 @@ namespace ShopManagement.Infrastructure.Repository
                 Heading = p.Heading,
                 Picture = p.Picture,
                 Title = p.Title,
-                IsRemoved = p.IsRemoved
+                IsRemoved = p.IsRemoved,
+                Link = p.Link
             }).AsNoTracking().ToList();
         }
 
@@ -41,7 +42,8 @@ namespace ShopManagement.Infrastructure.Repository
                 BtnText = s.BtnText,
                 Picture = s.Picture,
                 PictureAlt = s.PictureAlt,
-                PictureTitle = s.PictureTitle
+                PictureTitle = s.PictureTitle,
+                Link = s.Link
             }).FirstOrDefault(s => s.Id == id);
         }
     }

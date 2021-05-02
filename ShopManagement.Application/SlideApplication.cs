@@ -25,7 +25,7 @@ namespace ShopManagement.Application
             }
 
             var slide = new Slide(command.Picture, command.PictureTitle, command.PictureAlt, command.Heading, command.Title,
-                command.Text, command.BtnText);
+                command.Text, command.BtnText,command.Link);
             _slideRepository.Create(slide);
             _slideRepository.SaveChanges();
             return result.Succeeded();
@@ -44,7 +44,7 @@ namespace ShopManagement.Application
                 return result.Failed(QueryValidationMessage.DuplicateRecord);
             }
             slide.Edit(command.Picture, command.PictureTitle, command.PictureAlt, command.Heading, command.Title,
-                command.Text, command.BtnText);
+                command.Text, command.BtnText,command.Link);
             _slideRepository.SaveChanges();
             return result.Succeeded();
         }

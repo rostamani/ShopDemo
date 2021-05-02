@@ -19,6 +19,7 @@ namespace ShopManagement.Infrastructure.Mapping
             builder.Property(s => s.BtnText).HasMaxLength(50).IsRequired();
             builder.Property(s => s.Picture).HasMaxLength(1000).IsRequired();
             builder.Property(s => s.PictureAlt).HasMaxLength(500).IsRequired();
+            builder.Property(s => s.Link).HasMaxLength(500).IsRequired();
             builder.Property(s => s.PictureTitle).HasMaxLength(500).IsRequired();
         }
     }
