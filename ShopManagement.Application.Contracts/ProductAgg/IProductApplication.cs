@@ -12,6 +12,7 @@ namespace ShopManagement.Application.Contracts.ProductAgg
         OperationResult InStuck(long id);
         OperationResult NotInStuck(long id);
         List<ProductViewModel> Search(ProductSearchModel searchModel);
+        List<SelectProductViewModel> GetProducts();
         EditProduct GetDetails(long id);
     }
 }

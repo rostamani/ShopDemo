@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using _0_Framework.Application;
+using ShopManagement.Application.Contracts.ProductAgg;
 
 namespace ShopManagement.Application.Contracts.ProductPicture
 {
@@ -16,6 +17,7 @@ namespace ShopManagement.Application.Contracts.ProductPicture
         OperationResult Remove(long id);
 
         List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel);
+        
 
         EditProductPicture GetDetails(long id);
     }

@@ -26,7 +26,8 @@ namespace ShopManagement.Infrastructure.Repository
                 Id = p.Id,
                 Picture = p.Picture,
                 Product = p.Product.Name,
-                CreationDate = p.CreationDate.ToPersianDate()
+                CreationDate = p.CreationDate.ToPersianDate(),
+                IsRemoved = p.IsRemoved
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Picture))

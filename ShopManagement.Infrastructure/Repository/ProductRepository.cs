@@ -53,6 +53,15 @@ namespace ShopManagement.Infrastructure.Repository
             return query.OrderByDescending(p => p.CategoryId).ThenBy(p=>p.Id).AsNoTracking().ToList();
         }
 
+        public List<SelectProductViewModel> GetProducts()
+        {
+            return _db.Products.Select(p => new SelectProductViewModel()
+            {
+                Name = p.Name,
+                Id = p.Id
+            }).AsNoTracking().ToList();
+        }
+
         public EditProduct GetDetails(long id)
         {
             return _db.Products.Select(p => new EditProduct()
