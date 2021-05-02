@@ -6,6 +6,6 @@ namespace ShopManagement.Application.Contracts.ProductPicture
 {
     public class ProductPictureSearchModel
     {
-        public string Picture { get; set; }
+        public long ProductId { get; set; }
     }
 }

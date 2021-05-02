@@ -23,8 +23,8 @@
                 <form class="form-inline" role="form" method="get">
 
                     <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.Picture"></label>
-                        <input class="form-control" asp-for="SearchModel.Picture" placeholder="تصویر">
+                        <label class="sr-only" asp-for="SearchModel.ProductId"></label>
+                        <select class="form-control" asp-for="SearchModel.ProductId" asp-items='Model.Products'></select>
                     </div>
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>

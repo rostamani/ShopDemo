@@ -15,5 +15,7 @@ namespace ShopManagement.Application.Contracts.ProductPicture
         public string Product { get; set; }
 
         public bool IsRemoved { get; set; }
+
+        public long ProductId { get; set; }
     }
 }

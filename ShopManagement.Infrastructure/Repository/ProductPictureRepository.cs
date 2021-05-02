@@ -27,12 +27,13 @@ namespace ShopManagement.Infrastructure.Repository
                 Picture = p.Picture,
                 Product = p.Product.Name,
                 CreationDate = p.CreationDate.ToPersianDate(),
-                IsRemoved = p.IsRemoved
+                IsRemoved = p.IsRemoved,
+                ProductId = p.ProductId
             });
 
-            if (!string.IsNullOrWhiteSpace(searchModel.Picture))
+            if (searchModel.ProductId!=0)
             {
-                query = query.Where(p => p.Picture.Contains(searchModel.Picture));
+                query = query.Where(p => p.ProductId==searchModel.ProductId);
             }
 
             return query.OrderByDescending(p => p.Id).AsNoTracking().ToList();

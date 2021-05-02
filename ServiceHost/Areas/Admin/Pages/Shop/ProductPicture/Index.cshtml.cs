@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.ProductAgg;
 using ShopManagement.Application.Contracts.ProductPicture;
 
@@ -22,10 +23,12 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.ProductPicture
 
         public List<ProductPictureViewModel> ProductPictures;
         public ProductPictureSearchModel SearchModel;
+        public SelectList Products;
 
         public void OnGet(ProductPictureSearchModel searchModel)
         {
             ProductPictures = _productPictureApplication.Search(searchModel);
+            Products =new SelectList(_productApplication.GetProducts(),"Id","Name");
         }
 
         public IActionResult OnGetCreate()
