@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ShopManagement.Configuration;
+using DiscountManagement.Infrastructure.Configuration;
 
 namespace ServiceHost
 {
@@ -26,6 +27,7 @@ namespace ServiceHost
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
             ShopManagementBootstraper.Configure(services,Configuration.GetConnectionString("ShopConnectionString"));
+            DiscountManagementBootstrapper.Configure(services,Configuration.GetConnectionString("ShopConnectionString"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
