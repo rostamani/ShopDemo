@@ -16,7 +16,7 @@ namespace DiscountManagement.Application
             _colleagueDiscountRepository = colleagueDiscountRepository;
         }
 
-        public OperationResult Create(DefineColleagueDiscount command)
+        public OperationResult Define(DefineColleagueDiscount command)
         {
             var result=new OperationResult();
             if (_colleagueDiscountRepository.Exists(cd=>cd.ProductId==command.ProductId))

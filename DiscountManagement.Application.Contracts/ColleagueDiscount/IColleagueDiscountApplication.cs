@@ -7,7 +7,7 @@ namespace DiscountManagement.Application.Contracts.ColleagueDiscount
 {
     public interface IColleagueDiscountApplication
     {
-        OperationResult Create(DefineColleagueDiscount command);
+        OperationResult Define(DefineColleagueDiscount command);
         OperationResult Edit(EditColleagueDiscount command);
         OperationResult Remove(long id);
         OperationResult Restore(long id);

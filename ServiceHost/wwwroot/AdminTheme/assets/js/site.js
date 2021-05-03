@@ -41,6 +41,7 @@ $(document).ready(function () {
                 autoClose: true
                 
             });
+            $('.selectProduct').select2();
         });
 
     $(document).on("submit",
