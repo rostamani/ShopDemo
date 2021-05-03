@@ -7,14 +7,14 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
 {
     public class CustomerDiscount:EntityBase
     {
-        public int ProductId { get; private set; }
+        public long ProductId { get; private set; }
         public int DiscountRate { get; private set; }
         public string Reason { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public bool IsRemoved { get; private set; }
 
-        public CustomerDiscount(int productId, int discountRate, string reason, DateTime startDate, DateTime endDate)
+        public CustomerDiscount(long productId, int discountRate, string reason, DateTime startDate, DateTime endDate)
         {
             ProductId = productId;
             DiscountRate = discountRate;
@@ -24,7 +24,7 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
             IsRemoved = false;
         }
 
-        public void Edit(int productId, int discountRate, string reason, DateTime startDate, DateTime endDate)
+        public void Edit(long productId, int discountRate, string reason, DateTime startDate, DateTime endDate)
         {
             ProductId = productId;
             DiscountRate = discountRate;
