@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _0_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -40,7 +41,12 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Product
 
         public IActionResult OnPostEdit(EditProduct command)
         {
-            return new JsonResult(_productApplication.Edit(command));
+            var result = new OperationResult();
+            if (ModelState.IsValid)
+            {
+                result = _productApplication.Edit(command);
+            }
+            return new JsonResult(result);
         }
 
         public IActionResult OnGetCreate()
@@ -52,7 +58,12 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Product
 
         public IActionResult OnPostCreate(CreateProduct command)
         {
-            return new JsonResult(_productApplication.Create(command));
+            var result = new OperationResult();
+            if (ModelState.IsValid)
+            {
+                result = _productApplication.Create(command);
+            }
+            return new JsonResult(result);
         }
 
         public IActionResult OnGetInStuck(int id)

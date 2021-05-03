@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _0_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShopManagement.Application.Contracts.ProductCategory;
@@ -34,7 +35,11 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.ProductCategory
 
         public IActionResult OnPostCreate(CreateProductCategory command)
         {
-            var result=_productCategoryApplication.Create(command);
+            var result = new OperationResult();
+            if (ModelState.IsValid)
+            {
+                result=_productCategoryApplication.Create(command);
+            }
             return new JsonResult(result);
         }
 
@@ -45,7 +50,11 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.ProductCategory
 
         public IActionResult OnPostEdit(EditProductCategory command)
         {
-            var result = _productCategoryApplication.Edit(command);
+            var result=new OperationResult();
+            if (ModelState.IsValid)
+            {
+                result = _productCategoryApplication.Edit(command);
+            }
             return new JsonResult(result);
         }
     }

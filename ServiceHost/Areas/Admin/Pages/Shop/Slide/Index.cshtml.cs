@@ -33,13 +33,13 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Slide
 
         public IActionResult OnPostCreate(CreateSlide command)
         {
+            var operationResult=new OperationResult();
             if (ModelState.IsValid)
             {
-                var operationResult = _slideApplication.Create(command);
-                return new JsonResult(operationResult);
+                operationResult = _slideApplication.Create(command);
+                
             }
-
-            return RedirectToPage("Index");
+            return new JsonResult(operationResult);
 
         }
 
@@ -51,13 +51,12 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Slide
 
         public IActionResult OnPostEdit(EditSlide command)
         {
+            var operationResult=new OperationResult();
             if (ModelState.IsValid)
             {
-                var operationResult = _slideApplication.Edit(command);
-                return new JsonResult(operationResult);
+                operationResult = _slideApplication.Edit(command);
             }
-
-            return RedirectToPage("Index");
+            return new JsonResult(operationResult);
 
         }
 

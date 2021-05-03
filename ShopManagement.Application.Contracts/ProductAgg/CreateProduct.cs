@@ -37,7 +37,7 @@ namespace ShopManagement.Application.Contracts.ProductAgg
         public string PictureTitle { get;  set; }
         public List<SelectProductCategory> Categories { get; set; }
 
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(1,100000,ErrorMessage = ValidationMessage.IsRequired)]
         public long CategoryId { get; set; }
     }
 }
