@@ -16,6 +16,7 @@ namespace DiscountManagement.Application.Contracts.CustomerDiscount
         public bool IsRemoved { get; set; }
         public string Product { get; set; }
         public long ProductId { get; set; }
+        public string CreationDate { get; set; }
 
     }
 }

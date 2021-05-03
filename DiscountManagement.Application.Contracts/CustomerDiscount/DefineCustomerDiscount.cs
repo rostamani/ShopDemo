@@ -12,6 +12,6 @@ namespace DiscountManagement.Application.Contracts.CustomerDiscount
         public string Reason { get;  set; }
         public string StartDate { get;  set; }
         public string EndDate { get;  set; }
-        List<SelectProductViewModel> Products { get; set; }
+        public List<SelectProductViewModel> Products { get; set; }
     }
 }

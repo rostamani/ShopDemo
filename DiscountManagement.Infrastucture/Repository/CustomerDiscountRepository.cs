@@ -38,7 +38,8 @@ namespace DiscountManagement.Infrastructure.Repository
                 FaEndDate = cd.EndDate.ToFarsi(),
                 Reason = cd.Reason,
                 DiscountRate = cd.DiscountRate,
-                IsRemoved = cd.IsRemoved
+                IsRemoved = cd.IsRemoved,
+                CreationDate = cd.CreationDate.ToFarsi()
             });
 
             if (searchModel.ProductId!=0)
