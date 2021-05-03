@@ -32,7 +32,8 @@ namespace DiscountManagement.Infrastructure.Repository
                 Id = cd.Id,
                 ProductId = cd.ProductId,
                 CreationDate = cd.CreationDate.ToFarsi(),
-                IsRemoved = cd.IsRemoved
+                IsRemoved = cd.IsRemoved,
+                DiscountRate = cd.DiscountRate
             });
 
             if (searchModel.ProductId!=0)
@@ -41,7 +42,7 @@ namespace DiscountManagement.Infrastructure.Repository
             }
 
             var result = query.ToList();
-            result.ForEach(cd=>cd.Product=products.FirstOrDefault(p=>p.Id==cd.Id)?.Name);
+            result.ForEach(cd=>cd.Product=products.FirstOrDefault(p=>p.Id==cd.ProductId)?.Name);
             return result;
         }
 
