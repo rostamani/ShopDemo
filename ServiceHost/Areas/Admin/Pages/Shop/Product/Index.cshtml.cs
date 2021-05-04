@@ -66,16 +66,5 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Product
             return new JsonResult(result);
         }
 
-        public IActionResult OnGetInStuck(int id)
-        {
-            _productApplication.InStuck(id);
-            return RedirectToPage("Index");
-        }
-
-        public IActionResult OnGetNotInStuck(int id)
-        {
-            _productApplication.NotInStuck(id);
-            return RedirectToPage("Index");
-        }
     }
 }

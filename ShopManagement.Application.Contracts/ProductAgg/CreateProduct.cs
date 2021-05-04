@@ -16,10 +16,6 @@ namespace ShopManagement.Application.Contracts.ProductAgg
         public string Code { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public double UnitPrice { get;  set; }
-        public bool IsInStuck { get;  set; }
-
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Slug { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

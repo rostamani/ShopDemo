@@ -9,8 +9,6 @@ namespace ShopManagement.Application.Contracts.ProductAgg
     {
         OperationResult Create(CreateProduct command);
         OperationResult Edit(EditProduct command);
-        OperationResult InStuck(long id);
-        OperationResult NotInStuck(long id);
         List<ProductViewModel> Search(ProductSearchModel searchModel);
         List<SelectProductViewModel> GetProducts();
         EditProduct GetDetails(long id);

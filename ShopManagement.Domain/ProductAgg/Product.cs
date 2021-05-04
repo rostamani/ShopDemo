@@ -11,8 +11,6 @@ namespace ShopManagement.Domain.ProductAgg
     {
         public string Name { get; private set; }
         public string Code { get; private set; }
-        public double UnitPrice { get; private set; }
-        public bool IsInStuck { get;private set; }
         public string Slug { get; set; }
         public string MetaDescription { get; set; }
         public string Keywords { get; set; }
@@ -32,28 +30,10 @@ namespace ShopManagement.Domain.ProductAgg
             ProductPictures=new List<ProductPicture>();
         }
 
-        public Product(string name, string code, double unitPrice, string slug, string metaDescription, string keywords, string description, string shortDescription, string picture, string pictureAlt, string pictureTitle, long categoryId)
+        public Product(string name, string code, string slug, string metaDescription, string keywords, string description, string shortDescription, string picture, string pictureAlt, string pictureTitle, long categoryId)
         {
             Name = name;
             Code = code;
-            UnitPrice = unitPrice;
-            Slug = slug;
-            MetaDescription = metaDescription;
-            Keywords = keywords;
-            Description = description;
-            ShortDescription = shortDescription;
-            Picture = picture;
-            PictureAlt = pictureAlt;
-            PictureTitle = pictureTitle;
-            CategoryId = categoryId;
-            IsInStuck = true;
-        }
-
-        public void Edit(string name, string code, double unitPrice, string slug, string metaDescription, string keywords, string description, string shortDescription, string picture, string pictureAlt, string pictureTitle, long categoryId)
-        {
-            Name = name;
-            Code = code;
-            UnitPrice = unitPrice;
             Slug = slug;
             MetaDescription = metaDescription;
             Keywords = keywords;
@@ -65,15 +45,21 @@ namespace ShopManagement.Domain.ProductAgg
             CategoryId = categoryId;
         }
 
-        public void InStuck()
+        public void Edit(string name, string code, string slug, string metaDescription, string keywords, string description, string shortDescription, string picture, string pictureAlt, string pictureTitle, long categoryId)
         {
-            IsInStuck = true;
+            Name = name;
+            Code = code;
+            Slug = slug;
+            MetaDescription = metaDescription;
+            Keywords = keywords;
+            Description = description;
+            ShortDescription = shortDescription;
+            Picture = picture;
+            PictureAlt = pictureAlt;
+            PictureTitle = pictureTitle;
+            CategoryId = categoryId;
         }
 
-        public void NotInStuck()
-        {
-            IsInStuck = false;
-        }
 
 
     }

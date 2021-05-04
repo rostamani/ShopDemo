@@ -25,7 +25,7 @@ namespace ShopManagement.Application
                 return operationResult.Failed(QueryValidationMessage.DuplicateRecord);
             }
 
-            var product=new Product(command.Name,command.Code,command.UnitPrice,GenerateSlug.Slugify(command.Slug),
+            var product=new Product(command.Name,command.Code,GenerateSlug.Slugify(command.Slug),
                 command.MetaDescription,command.Keywords,command.Description,command.ShortDescription,command.Picture,
                 command.PictureAlt,command.PictureTitle,command.CategoryId);
 
@@ -48,35 +48,9 @@ namespace ShopManagement.Application
                 return operationResult.Failed(QueryValidationMessage.DuplicateRecord);
             }
             
-            product.Edit(command.Name, command.Code, command.UnitPrice, GenerateSlug.Slugify(command.Slug),
+            product.Edit(command.Name, command.Code, GenerateSlug.Slugify(command.Slug),
                 command.MetaDescription, command.Keywords, command.Description, command.ShortDescription, command.Picture,
                 command.PictureAlt, command.PictureTitle, command.CategoryId);
-            _productRepository.SaveChanges();
-            return operationResult.Succeeded();
-        }
-
-        public OperationResult InStuck(long id)
-        {
-            var operationResult = new OperationResult();
-            var product = _productRepository.Get(id);
-            if (product==null)
-            {
-                return operationResult.Failed(QueryValidationMessage.NotFound);
-            }
-            product.InStuck();
-            _productRepository.SaveChanges();
-            return operationResult.Succeeded();
-        }
-
-        public OperationResult NotInStuck(long id)
-        {
-            var operationResult = new OperationResult();
-            var product = _productRepository.Get(id);
-            if (product == null)
-            {
-                return operationResult.Failed(QueryValidationMessage.NotFound);
-            }
-            product.NotInStuck();
             _productRepository.SaveChanges();
             return operationResult.Succeeded();
         }

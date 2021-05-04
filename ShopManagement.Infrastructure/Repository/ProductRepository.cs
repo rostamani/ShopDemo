@@ -27,10 +27,8 @@ namespace ShopManagement.Infrastructure.Repository
                 Category = p.Category.Name,
                 CategoryId = p.CategoryId,
                 Picture = p.Picture,
-                UnitPrice=p.UnitPrice,
                 Code = p.Code,
                 CreationDate = p.CreationDate.ToPersianDate(),
-                IsInStuck  = p.IsInStuck,
                 Name = p.Name
             });
 
@@ -75,7 +73,6 @@ namespace ShopManagement.Infrastructure.Repository
                 MetaDescription = p.MetaDescription,
                 Keywords = p.Keywords,
                 Slug = p.Slug,
-                UnitPrice = p.UnitPrice,
                 ShortDescription = p.ShortDescription,
                 Description = p.Description
             }).AsNoTracking().FirstOrDefault(p => p.Id == id);
