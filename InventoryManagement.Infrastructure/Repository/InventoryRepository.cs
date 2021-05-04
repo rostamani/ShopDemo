@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using _0_Framework.Application;
 using _0_Framework.Infrastructure;
+using InventoryManagement.Application.Contracts;
 using InventoryManagement.Application.Contracts.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using Microsoft.EntityFrameworkCore;
@@ -61,6 +63,24 @@ namespace InventoryManagement.Infrastructure.Repository
         public Inventory GetBy(long productId)
         {
             return _db.Inventory.FirstOrDefault(i => i.ProductId == productId);
+        }
+
+        public List<OperationLogViewModel> GetOperations(long id)
+        {
+            var inventory = _db.Inventory.AsNoTracking().FirstOrDefault(i => i.Id == id);
+            
+            return inventory.Operations.Select(o => new OperationLogViewModel()
+            {
+                Id = o.Id,
+                OperationDate = o.OperationDate.ToFarsi(),
+                OperatorId = o.OperatorId,
+                Count = o.Count,
+                CurrentCount = o.CurrentCount,
+                IsIncrement = o.IsIncrement,
+                OrderId = o.OrderId,
+                Description = o.Description,
+                Operator = "مدیر سیستم"
+            }).OrderByDescending(o=>o.Id).ToList();
         }
     }
 }

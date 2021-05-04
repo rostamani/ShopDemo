@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using _0_Framework.Application;
+using InventoryManagement.Application.Contracts;
 using InventoryManagement.Application.Contracts.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 
@@ -94,6 +95,11 @@ namespace InventoryManagement.Application
         public List<InventoryViewModel> Search(InventorySearchModel searchModel)
         {
             return _inventoryRepository.Search(searchModel);
+        }
+
+        public List<OperationLogViewModel> GetOperations(long id)
+        {
+            return _inventoryRepository.GetOperations(id);
         }
     }
 }

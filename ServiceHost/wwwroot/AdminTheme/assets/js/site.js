@@ -42,6 +42,15 @@ $(document).ready(function () {
                 
             });
             $('.selectProduct').select2();
+
+            $(document).ready(function () {
+                $('#datatable').dataTable({
+                    columnDefs: [{
+                        "defaultContent": "-",
+                        "targets": "_all"
+                    }]
+                });
+            });
         });
 
     $(document).on("submit",
