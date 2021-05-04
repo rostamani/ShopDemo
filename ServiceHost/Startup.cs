@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ShopManagement.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
+using InventoryManagement.Configuration;
 
 namespace ServiceHost
 {
@@ -26,8 +27,12 @@ namespace ServiceHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
-            ShopManagementBootstraper.Configure(services,Configuration.GetConnectionString("ShopConnectionString"));
-            DiscountManagementBootstrapper.Configure(services,Configuration.GetConnectionString("ShopConnectionString"));
+
+            var connectionString = Configuration.GetConnectionString("ShopConnectionString");
+
+            ShopManagementBootstraper.Configure(services,connectionString);
+            DiscountManagementBootstrapper.Configure(services, connectionString);
+            InventoryManagementBootstrapper.Configure(services, connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
