@@ -11,7 +11,7 @@ using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure;
 
 
-namespace _01_ShopQuery.Contracts.Query
+namespace _01_ShopQuery.Query
 {
     public class ProductCategoryQuery : IProductCategoryQuery
     {

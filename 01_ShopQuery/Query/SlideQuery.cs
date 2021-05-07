@@ -6,7 +6,7 @@ using _01_ShopQuery.Contracts.Slide;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Infrastructure;
 
-namespace _01_ShopQuery.Contracts.Query
+namespace _01_ShopQuery.Query
 {
     public class SlideQuery:ISlideQuery
     {
