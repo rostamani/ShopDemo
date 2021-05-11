@@ -88,26 +88,27 @@ namespace _01_ShopQuery.Query
 
         public ProductCategoryQueryModel GetProductCategoryWithProducts(string slug)
         {
-            
-            var category = _db.ProductCategories
-                .Include(c=>c.Products).ThenInclude(p=>p.Category)
-                .Select(c => new ProductCategoryQueryModel()
-            {
-                Id = c.Id,
-                Name = c.Name,
-                Description = c.Description,
-                MetaDescription = c.MetaDescription,
-                Keywords = c.Keywords,
-                Picture = c.Picture,
-                PictureTitle = c.PictureTitle,
-                PictureAlt = c.PictureAlt,
-                Slug = c.Slug,
-                Products = MapProducts(c.Products)
-            }).FirstOrDefault(d => d.Slug == slug);
 
-            if (category!=null)
+            var category = _db.ProductCategories
+                .Include(c => c.Products).ThenInclude(p => p.Category)
+                .Select(c => new ProductCategoryQueryModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description,
+                    MetaDescription = c.MetaDescription,
+                    Keywords = c.Keywords,
+                    Picture = c.Picture,
+                    PictureTitle = c.PictureTitle,
+                    PictureAlt = c.PictureAlt,
+                    Slug = c.Slug,
+                    Products = MapProducts(c.Products)
+                }).FirstOrDefault(d => d.Slug == slug);
+
+            if (category != null)
             {
                 var discounts = _discountContext.CustomerDiscounts
+                    .Where(d => d.StartDate < DateTime.Now && d.EndDate > DateTime.Now)
                     .Select(d => new { ProductId = d.ProductId, DiscountRate = d.DiscountRate, DiscountEndDate = d.EndDate })
                     .AsNoTracking()
                     .ToList();
@@ -119,11 +120,11 @@ namespace _01_ShopQuery.Query
                 foreach (var product in category.Products)
                 {
                     var inventory = productsInventory.FirstOrDefault(i => i.ProductId == product.Id);
-                    if (inventory!=null)
+                    if (inventory != null)
                     {
                         product.Price = inventory.Price.ToMoney();
                         var discount = discounts.FirstOrDefault(d => d.ProductId == product.Id);
-                        if (discount!=null)
+                        if (discount != null)
                         {
                             product.DiscountRate = discount.DiscountRate;
                             product.HasDiscount = product.DiscountRate > 0;
@@ -153,5 +154,6 @@ namespace _01_ShopQuery.Query
             }).OrderByDescending(p => p.Id).ToList();
             return result;
         }
+
     }
 }
