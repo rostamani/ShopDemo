@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.Slide;
+using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
@@ -17,6 +18,7 @@ namespace ShopManagement.Infrastructure
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductPicture> ProductPictures { get; set; }
         public DbSet<Slide> Slides { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public ShopContext(DbContextOptions<ShopContext> options):base(options)
         {
@@ -29,6 +31,7 @@ namespace ShopManagement.Infrastructure
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new ProductPictureMapping());
             modelBuilder.ApplyConfiguration(new SlideMapping());
+            modelBuilder.ApplyConfiguration(new CommentMapping());
             base.OnModelCreating(modelBuilder);
         }
     }
