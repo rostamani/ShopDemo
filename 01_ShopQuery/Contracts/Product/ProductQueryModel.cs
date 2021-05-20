@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using _01_ShopQuery.Contracts.Product;
 
-namespace _01_ShopQuery.Contracts.ProductCategory
+namespace _01_ShopQuery.Contracts.Product
 {
     public class ProductQueryModel
     {
@@ -26,15 +27,8 @@ namespace _01_ShopQuery.Contracts.ProductCategory
         public bool IsInStock { get; set; }
 
         public List<ProductPictureQueryModel> ProductPictures { get; set; }
+        public List<CommentQueryModel> ProductComments { get; set; }
     }
 
-
-    public class ProductPictureQueryModel
-    {
-        public long ProductId { get; set; }
-        public string Picture { get; set; }
-        public string PictureAlt { get; set; }
-        public string PictureTitle { get; set; }
-        public bool IsRemoved { get; set; }
-    }
+    
 }

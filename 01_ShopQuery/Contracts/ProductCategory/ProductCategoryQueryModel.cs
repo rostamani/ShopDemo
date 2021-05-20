@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using _01_ShopQuery.Contracts.Product;
 
 namespace _01_ShopQuery.Contracts.ProductCategory
 {

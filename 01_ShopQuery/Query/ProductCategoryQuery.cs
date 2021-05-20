@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using _0_Framework.Application;
+using _01_ShopQuery.Contracts.Product;
 using _01_ShopQuery.Contracts.ProductCategory;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;

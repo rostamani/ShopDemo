@@ -8,6 +8,7 @@ using _01_ShopQuery.Contracts.ProductCategory;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure;
 
@@ -75,7 +76,10 @@ namespace _01_ShopQuery.Query
 
         public ProductQueryModel GetDetails(string slug)
         {
-            var product = _shopContext.Products.Include(p=>p.Category).Include(p=>p.ProductPictures).Select(p => new ProductQueryModel()
+            var product = _shopContext.Products.Include(p=>p.Category)
+                .Include(p=>p.ProductPictures)
+                .Include(p=>p.Comments)
+                .Select(p => new ProductQueryModel()
             {
                 Id=p.Id,
                 Name = p.Name,
@@ -89,7 +93,8 @@ namespace _01_ShopQuery.Query
                 Keywords = p.Keywords,
                 CategorySlug = p.Category.Slug,
                 Slug = p.Slug,
-                ProductPictures = MapProductPictures(p.ProductPictures)
+                ProductPictures = MapProductPictures(p.ProductPictures),
+                ProductComments = MapProductComments(p.Comments)
 
             }).AsNoTracking().FirstOrDefault(p => p.Slug == slug);
 
@@ -146,6 +151,21 @@ namespace _01_ShopQuery.Query
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle
             }).Where(x => x.IsRemoved == false).ToList();
+        }
+
+        private static List<CommentQueryModel> MapProductComments(List<Comment> productComments)
+        {
+            var result = productComments.Where(c => c.IsConfirmed && c.IsCanceled == false)
+                .Select(c => new CommentQueryModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Email = c.Email,
+                    Message = c.Message,
+                    CreationDate = c.CreationDate.ToFarsi()
+                }).OrderByDescending(c=>c.Id).ToList();
+
+            return result;
         }
     }
 }
