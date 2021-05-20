@@ -44,7 +44,7 @@ namespace _01_ShopQuery.Query
         {
             var productsDiscounts = _discountContext.CustomerDiscounts
                 .Where(d => d.StartDate < DateTime.Now && d.EndDate > DateTime.Now)
-                .Select(d => new { ProductId = d.ProductId, DiscountRate = d.DiscountRate, EndDate = d.EndDate.ToFarsi() })
+                .Select(d => new { ProductId = d.ProductId, DiscountRate = d.DiscountRate, EndDate = d.EndDate})
                 .AsNoTracking().ToList();
 
             var productsInventory = _inventoryContext.Inventory.Select(i => new { Price = i.UnitPrice, ProductId = i.ProductId })
@@ -77,7 +77,7 @@ namespace _01_ShopQuery.Query
                             double discountAmount = (inventory.Price * product.DiscountRate / 100);
                             product.PriceWithDiscount = Math.Round(inventory.Price - discountAmount).ToMoney();
                             product.HasDiscount = product.DiscountRate > 0;
-                            product.DiscountEndDate = discount.EndDate;
+                            product.DiscountEndDate = discount.EndDate.ToDiscountFormat();
                         }
                     }
                 }
@@ -150,7 +150,8 @@ namespace _01_ShopQuery.Query
                 Picture = p.Picture,
                 PictureTitle = p.PictureTitle,
                 PictureAlt = p.PictureAlt,
-                Slug = p.Slug
+                Slug = p.Slug,
+                CategorySlug = p.Category.Slug
             }).OrderByDescending(p => p.Id).ToList();
             return result;
         }

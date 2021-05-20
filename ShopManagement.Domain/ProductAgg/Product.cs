@@ -12,8 +12,8 @@ namespace ShopManagement.Domain.ProductAgg
         public string Name { get; private set; }
         public string Code { get; private set; }
         public string Slug { get; set; }
-        public string MetaDescription { get; set; }
-        public string Keywords { get; set; }
+        public string MetaDescription { get;private set; }
+        public string Keywords { get;private set; }
         public string Description { get; private set; }
         public string ShortDescription { get; private set; }
         public string Picture { get; private set; }
