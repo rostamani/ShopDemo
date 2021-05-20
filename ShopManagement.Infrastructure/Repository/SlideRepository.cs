@@ -40,7 +40,7 @@ namespace ShopManagement.Infrastructure.Repository
                 Heading = s.Heading,
                 Text = s.Text,
                 BtnText = s.BtnText,
-                Picture = s.Picture,
+                //Picture = s.Picture,
                 PictureAlt = s.PictureAlt,
                 PictureTitle = s.PictureTitle,
                 Link = s.Link

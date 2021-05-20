@@ -19,6 +19,11 @@ namespace ShopManagement.Infrastructure.Repository
             _db = db;
         }
 
+        public Product GetProductWithCategory(long id)
+        {
+            return _db.Products.Include(p => p.Category).FirstOrDefault(p => p.Id == id);
+        }
+
         public List<ProductViewModel> Search(ProductSearchModel searchModel)
         {
             var query = _db.Products.Include(p=>p.Category).Select(p=>new ProductViewModel()
@@ -67,7 +72,7 @@ namespace ShopManagement.Infrastructure.Repository
                 Id = p.Id,
                 Code = p.Code,
                 Name = p.Name,
-                Picture = p.Picture,
+                //Picture = p.Picture,
                 PictureAlt = p.PictureAlt,
                 PictureTitle = p.PictureTitle,
                 MetaDescription = p.MetaDescription,

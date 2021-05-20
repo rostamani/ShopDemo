@@ -50,7 +50,7 @@ namespace ShopManagement.Infrastructure.Repository
                 Description = p.Description,
                 Keywords = p.Keywords,
                 Slug = p.Slug,
-                Picture = p.Picture,
+                //Picture = p.Picture,
                 PictureTitle = p.PictureTitle,
                 PictureAlt = p.PictureAlt,
             }).AsNoTracking().FirstOrDefault(p => p.Id == id);
@@ -63,6 +63,12 @@ namespace ShopManagement.Infrastructure.Repository
                 Id = c.Id,
                 Name = c.Name
             }).AsNoTracking().ToList();
+        }
+
+        public string GetSlugBy(long id)
+        {
+            return _db.ProductCategories.Select(c => new {Slug = c.Slug, Id = c.Id}).FirstOrDefault(c => c.Id == id)
+                ?.Slug;
         }
     }
 }

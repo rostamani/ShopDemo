@@ -13,6 +13,7 @@ namespace _0_Framework.Application
         public OperationResult()
         {
             IsSucceeded = false;
+            Message = "عملیات با شکست مواجه شد.";
         }
 
         public OperationResult Succeeded(string message="عملیات با موفقیت انجام شد.")

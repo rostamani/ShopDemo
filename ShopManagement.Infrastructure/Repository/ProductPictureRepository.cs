@@ -45,10 +45,16 @@ namespace ShopManagement.Infrastructure.Repository
             {
                 Id = p.Id,
                 ProductId = p.ProductId,
-                Picture = p.Picture,
+                //Picture = p.Picture,
                 PictureAlt = p.PictureAlt,
                 PictureTitle=p.PictureTitle
             }).AsNoTracking().FirstOrDefault(p => p.Id == id);
+        }
+
+        public ProductPicture GetProductPictureWithProduct(long id)
+        {
+            return _db.ProductPictures.Include(p => p.Product)
+                .ThenInclude(p => p.Category).FirstOrDefault(p => p.Id == id);
         }
     }
 }

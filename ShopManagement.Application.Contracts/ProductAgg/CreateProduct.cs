@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using _0_Framework.Application;
+using Microsoft.AspNetCore.Http;
 using ShopManagement.Application.Contracts.ProductCategory;
 
 namespace ShopManagement.Application.Contracts.ProductAgg
@@ -28,7 +29,10 @@ namespace ShopManagement.Application.Contracts.ProductAgg
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string ShortDescription { get;  set; }
-        public string Picture { get;  set; }
+
+        [MaxFileSize(3*1024*1024,ErrorMessage = ValidationMessage.MaxFileSizeError)]
+        [FileExtensionLimit(new string[] {".jpg",".jpeg",".png"},ErrorMessage = ValidationMessage.InvalidFileFormat)]
+        public IFormFile Picture { get;  set; }
         public string PictureAlt { get;  set; }
         public string PictureTitle { get;  set; }
         public List<SelectProductCategory> Categories { get; set; }

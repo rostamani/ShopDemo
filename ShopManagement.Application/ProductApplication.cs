@@ -12,11 +12,16 @@ namespace ShopManagement.Application
     public class ProductApplication:IProductApplication
     {
         private readonly IProductRepository _productRepository;
+        private readonly IProductCategoryRepository _productCategoryRepository;
+        private readonly IFileUploader _fileUploader;
 
-        public ProductApplication(IProductRepository productRepository)
+        public ProductApplication(IProductRepository productRepository, IProductCategoryRepository productCategoryRepository, IFileUploader fileUploader)
         {
             _productRepository = productRepository;
+            _productCategoryRepository = productCategoryRepository;
+            _fileUploader = fileUploader;
         }
+
         public OperationResult Create(CreateProduct command)
         {
             var operationResult=new OperationResult();
@@ -25,8 +30,14 @@ namespace ShopManagement.Application
                 return operationResult.Failed(QueryValidationMessage.DuplicateRecord);
             }
 
-            var product=new Product(command.Name,command.Code,GenerateSlug.Slugify(command.Slug),
-                command.MetaDescription,command.Keywords,command.Description,command.ShortDescription,command.Picture,
+            var productCategorySlug = _productCategoryRepository.GetSlugBy(command.CategoryId);
+            var productSlug = GenerateSlug.Slugify(command.Slug);
+            var picturePath = $"{productCategorySlug}/{productSlug}";
+
+            var pictureName = _fileUploader.FileUpload(command.Picture, picturePath);
+
+            var product=new Product(command.Name,command.Code,productSlug,
+                command.MetaDescription,command.Keywords,command.Description,command.ShortDescription,pictureName,
                 command.PictureAlt,command.PictureTitle,command.CategoryId);
 
             _productRepository.Create(product);
@@ -37,7 +48,7 @@ namespace ShopManagement.Application
         public OperationResult Edit(EditProduct command)
         {
             var operationResult = new OperationResult();
-            var product = _productRepository.Get(command.Id);
+            var product = _productRepository.GetProductWithCategory(command.Id);
             if (product==null)
             {
                 return operationResult.Failed(QueryValidationMessage.NotFound);
@@ -47,9 +58,14 @@ namespace ShopManagement.Application
             {
                 return operationResult.Failed(QueryValidationMessage.DuplicateRecord);
             }
-            
+
+            var productCategorySlug = product.Category.Slug;
+            var productSlug = GenerateSlug.Slugify(command.Slug);
+            var picturePath = $"{productCategorySlug}/{productSlug}";
+            var pictureName = _fileUploader.FileUpload(command.Picture, picturePath);
+
             product.Edit(command.Name, command.Code, GenerateSlug.Slugify(command.Slug),
-                command.MetaDescription, command.Keywords, command.Description, command.ShortDescription, command.Picture,
+                command.MetaDescription, command.Keywords, command.Description, command.ShortDescription, pictureName,
                 command.PictureAlt, command.PictureTitle, command.CategoryId);
             _productRepository.SaveChanges();
             return operationResult.Succeeded();

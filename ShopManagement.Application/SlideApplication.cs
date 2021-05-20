@@ -10,21 +10,21 @@ namespace ShopManagement.Application
     public class SlideApplication : ISlideApplication
     {
         private readonly ISlideRepository _slideRepository;
+        private readonly IFileUploader _fileUploader;
 
-        public SlideApplication(ISlideRepository slideRepository)
+        public SlideApplication(ISlideRepository slideRepository, IFileUploader fileUploader)
         {
             _slideRepository = slideRepository;
+            _fileUploader = fileUploader;
         }
 
         public OperationResult Create(CreateSlide command)
         {
             var result = new OperationResult();
-            if (_slideRepository.Exists(s => s.Picture == command.Picture))
-            {
-                return result.Failed(QueryValidationMessage.DuplicateRecord);
-            }
+            var path = "Slides";
+            var picturePath = _fileUploader.FileUpload(command.Picture, path);
 
-            var slide = new Slide(command.Picture, command.PictureTitle, command.PictureAlt, command.Heading, command.Title,
+            var slide = new Slide(picturePath, command.PictureTitle, command.PictureAlt, command.Heading, command.Title,
                 command.Text, command.BtnText,command.Link);
             _slideRepository.Create(slide);
             _slideRepository.SaveChanges();
@@ -39,11 +39,9 @@ namespace ShopManagement.Application
             {
                 return result.Failed(QueryValidationMessage.NotFound);
             }
-            if (_slideRepository.Exists(s => s.Picture == command.Picture && s.Id!=command.Id))
-            {
-                return result.Failed(QueryValidationMessage.DuplicateRecord);
-            }
-            slide.Edit(command.Picture, command.PictureTitle, command.PictureAlt, command.Heading, command.Title,
+            var path = "Slides";
+            var picturePath = _fileUploader.FileUpload(command.Picture, path);
+            slide.Edit(picturePath, command.PictureTitle, command.PictureAlt, command.Heading, command.Title,
                 command.Text, command.BtnText,command.Link);
             _slideRepository.SaveChanges();
             return result.Succeeded();

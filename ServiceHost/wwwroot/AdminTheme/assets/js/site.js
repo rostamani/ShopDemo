@@ -208,15 +208,16 @@ jQuery.validator.addMethod("maxFileSize",
     });
 jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
 
-//jQuery.validator.addMethod("maxFileSize",
-//    function (value, element, params) {
-//        var size = element.files[0].size;
-//        var maxSize = 3 * 1024 * 1024;
-//        debugger;
-//        if (size > maxSize)
-//            return false;
-//        else {
-//            return true;
-//        }
-//    });
-//jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+jQuery.validator.addMethod("fileExtensionLimit",
+    function (value, element, params) {
+        var ext = ["jpeg", "png", "jpg"];
+        var type = element.files[0].name.split('.').pop();
+        if (ext.indexOf(type) == -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    });
+jQuery.validator.unobtrusive.adapters.addBool("fileExtensionLimit");
+

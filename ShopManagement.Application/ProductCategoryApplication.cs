@@ -10,10 +10,12 @@ namespace ShopManagement.Application
     public class ProductCategoryApplication : IProductCategoryApplication
     {
         private readonly IProductCategoryRepository _productCategoryRepository;
+        private readonly IFileUploader _fileUploader;
 
-        public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository)
+        public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository, IFileUploader fileUploader)
         {
             _productCategoryRepository = productCategoryRepository;
+            _fileUploader = fileUploader;
         }
         
 
@@ -24,8 +26,9 @@ namespace ShopManagement.Application
             {
                 return operationResult.Failed("امکان ثبت رکورد تکراری وجود ندارد.");
             }
-            
-            var produceCategory=new ProductCategory(command.Name,command.Description,command.Picture,command.PictureAlt,
+
+            var filename = _fileUploader.FileUpload(command.Picture, command.Slug);
+            var produceCategory=new ProductCategory(command.Name,command.Description,filename,command.PictureAlt,
                 command.PictureTitle,command.Keywords,command.MetaDescription,command.Slug.Slugify());
             _productCategoryRepository.Create(produceCategory);
             _productCategoryRepository.SaveChanges();
@@ -45,7 +48,9 @@ namespace ShopManagement.Application
             {
                 return operationResult.Failed("امکان ثبت رکورد تکراری وجود ندارد.");
             }
-            productCategory.Edit(command.Name, command.Description, command.Picture, command.PictureAlt,
+
+            var filename = _fileUploader.FileUpload(command.Picture, command.Slug);
+            productCategory.Edit(command.Name, command.Description, filename, command.PictureAlt,
                 command.PictureTitle, command.Keywords, command.MetaDescription, command.Slug.Slugify());
 
             _productCategoryRepository.SaveChanges();

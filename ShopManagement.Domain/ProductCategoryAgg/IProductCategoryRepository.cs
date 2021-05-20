@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Text;
 using _0_Framework.Application;
 using _0_Framework.Domain;
+using Microsoft.Extensions.Logging.Abstractions;
 using ShopManagement.Application.Contracts.ProductCategory;
 
 namespace ShopManagement.Domain.ProductCategoryAgg
@@ -16,6 +17,8 @@ namespace ShopManagement.Domain.ProductCategoryAgg
         EditProductCategory GetDetails(long id);
 
         List<SelectProductCategory> GetCategories();
+
+        string GetSlugBy(long id);
 
     }
 }
