@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using _0_Framework.Domain;
+using AccountManagement.Application.Contracts.Account;
+
+namespace AccountManagement.Domain.AccountAgg
+{
+    public interface IAccountRepository:IRepository<long,Account>
+    {
+        EditAccount GetDetails(long id);
+        List<AccountViewModel> Search(AccountSearchModel searchModel);
+    }
+}

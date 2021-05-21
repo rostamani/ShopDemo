@@ -15,13 +15,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\01_ShopQuery\01_ShopQuery.csproj" />
+    <ProjectReference Include="..\AccountManagement.Configuration\AccountManagement.Configuration.csproj" />
     <ProjectReference Include="..\DiscountManagement.Infrastructure.Configuration\DiscountManagement.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\InventoryManagement.Configuration\InventoryManagement.Configuration.csproj" />
     <ProjectReference Include="..\ShopManagement.Configuration\ShopManagement.Configuration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\UploadedFiles\" />
+    <Folder Include="wwwroot\UploadedFiles\ProfilePhotos\" />
   </ItemGroup>
 
 </Project>

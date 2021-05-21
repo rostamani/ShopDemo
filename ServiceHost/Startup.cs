@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using AccountManagement.Configuration;
 using ShopManagement.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using InventoryManagement.Configuration;
@@ -34,8 +35,10 @@ namespace ServiceHost
             ShopManagementBootstraper.Configure(services,connectionString);
             DiscountManagementBootstrapper.Configure(services, connectionString);
             InventoryManagementBootstrapper.Configure(services, connectionString);
+            AccountManagementBootstrapper.Configure(services,connectionString);
 
             services.AddTransient<IFileUploader, FileUploader>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
