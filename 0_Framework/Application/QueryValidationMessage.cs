@@ -8,5 +8,6 @@ namespace _0_Framework.Application
     {
         public const string NotFound = "چنین رکوردی در دیتابیس وجود ندارد.";
         public const string DuplicateRecord = "امکان ثبت رکورد تکراری وجود ندارد.";
+        public const string WrongUserPass = "نام کاربری یا رمز عبور اشتباه است.";
     }
 }

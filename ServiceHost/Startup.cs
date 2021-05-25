@@ -13,6 +13,8 @@ using AccountManagement.Configuration;
 using ShopManagement.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using InventoryManagement.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace ServiceHost
 {
@@ -29,6 +31,21 @@ namespace ServiceHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddHttpContextAccessor();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.LoginPath = new PathString("/Account");
+                    options.LogoutPath = new PathString("/Account");
+                    options.AccessDeniedPath = new PathString("/AccessDenied");
+                });
 
             var connectionString = Configuration.GetConnectionString("ShopConnectionString");
 
@@ -39,6 +56,8 @@ namespace ServiceHost
 
             services.AddTransient<IFileUploader, FileUploader>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<IAuthHelper, AuthHelper>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,9 +74,10 @@ namespace ServiceHost
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -65,6 +85,7 @@ namespace ServiceHost
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                
             });
         }
     }

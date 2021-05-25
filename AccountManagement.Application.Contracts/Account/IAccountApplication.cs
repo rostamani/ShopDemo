@@ -11,6 +11,8 @@ namespace AccountManagement.Application.Contracts.Account
         OperationResult Register(CreateAccount command);
         OperationResult Edit(EditAccount command);
         OperationResult ChangePassword(ChangePassword command);
+        OperationResult Login(LoginModel command);
+        void Logout();
         List<AccountViewModel> Search(AccountSearchModel searchModel);
         EditAccount GetDetails(long id);
     }

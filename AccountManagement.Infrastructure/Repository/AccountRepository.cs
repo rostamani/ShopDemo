@@ -39,6 +39,7 @@ namespace AccountManagement.Infrastructure.Repository
                 Fullname = x.Fullname,
                 Username = x.Username,
                 Mobile = x.Mobile,
+                ProfilePhoto = x.ProfilePhoto,
                 Role = x.Role.Name,
                 RegisteredDate = x.CreationDate.ToFarsi()
             }).AsNoTracking();
@@ -64,6 +65,11 @@ namespace AccountManagement.Infrastructure.Repository
             }
 
             return result.OrderByDescending(x => x.Id).ToList();
+        }
+
+        public Account GetBy(string username)
+        {
+            return _db.Accounts.FirstOrDefault(x => x.Username==username);
         }
     }
 }

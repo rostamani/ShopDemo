@@ -10,5 +10,6 @@ namespace _0_Framework.Application
         public const string MaxFileSizeError = "حجم فایل بیشتر از مقدار مجاز است.";
         public const string InvalidFileFormat = "فرمت فایل معتبر نیست.";
         public const string ComparePassword = "کلمه عبور و تکرار کلمه عبور با هم تطابق ندارند.";
+        public const string MaxLength = "طول این فیلد بیشتر از حد مجاز است.";
     }
 }

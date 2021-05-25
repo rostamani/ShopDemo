@@ -12,12 +12,14 @@ namespace AccountManagement.Application
         private readonly IAccountRepository _accountRepository;
         private readonly IFileUploader _fileUploader;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IAuthHelper _authHelper;
 
-        public AccountApplication(IAccountRepository accountRepository, IFileUploader fileUploader, IPasswordHasher passwordHasher)
+        public AccountApplication(IAccountRepository accountRepository, IFileUploader fileUploader, IPasswordHasher passwordHasher, IAuthHelper authHelper)
         {
             _accountRepository = accountRepository;
             _fileUploader = fileUploader;
             _passwordHasher = passwordHasher;
+            _authHelper = authHelper;
         }
 
         public OperationResult Register(CreateAccount command)
@@ -75,6 +77,32 @@ namespace AccountManagement.Application
             account.ChangePassword(hashedPassword);
             _accountRepository.SaveChanges();
             return operationResult.Succeeded();
+        }
+
+        public OperationResult Login(LoginModel command)
+        {
+            var operationResult = new OperationResult();
+            var account = _accountRepository.GetBy(command.Username);
+            if (account==null)
+            {
+                return operationResult.Failed(QueryValidationMessage.WrongUserPass);
+            }
+
+            (bool verified,bool needsUpgrade) result = _passwordHasher.Check(account.Password,command.Password);
+            if (result.verified!=true)
+            {
+                return operationResult.Failed(QueryValidationMessage.WrongUserPass);
+            }
+
+            var authModel=new AuthViewModel(account.Username,account.Fullname,account.Id,account.RoleId);
+            _authHelper.SignIn(authModel);
+
+            return operationResult.Succeeded();
+        }
+
+        public void Logout()
+        {
+            _authHelper.SignOut();
         }
 
         public List<AccountViewModel> Search(AccountSearchModel searchModel)
