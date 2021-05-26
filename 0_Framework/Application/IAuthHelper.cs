@@ -9,5 +9,7 @@ namespace _0_Framework.Application
         void SignOut();
         void SignIn(AuthViewModel account);
         bool IsAuthenticated();
+        string GetCurrentUserRole();
+        AuthViewModel GetCurrentUserInfo();
     }
 }

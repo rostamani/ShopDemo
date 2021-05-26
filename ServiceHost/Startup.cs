@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using AccountManagement.Configuration;
 using ShopManagement.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
@@ -30,7 +31,12 @@ namespace ServiceHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddRazorPages().AddRazorRuntimeCompilation().AddRazorPagesOptions(x =>
+                {
+                    x.Conventions.AuthorizeAreaFolder("Admin", "/", "AdminArea");
+                    x.Conventions.AuthorizeAreaFolder("Admin", "/Discount", "Discounts");
+                    x.Conventions.AuthorizeAreaFolder("Admin", "/Accounts", "Accounts");
+                });
             services.AddHttpContextAccessor();
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -46,6 +52,13 @@ namespace ServiceHost
                     options.LogoutPath = new PathString("/Account");
                     options.AccessDeniedPath = new PathString("/AccessDenied");
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminArea",builder=>builder.RequireRole(new List<string>{Roles.Admin,Roles.Operator}));
+                options.AddPolicy("Discounts",builder=>builder.RequireRole(new List<string> {Roles.Admin}));
+                options.AddPolicy("Accounts",builder=>builder.RequireRole(new List<string> {Roles.Admin}));
+            });
 
             var connectionString = Configuration.GetConnectionString("ShopConnectionString");
 
