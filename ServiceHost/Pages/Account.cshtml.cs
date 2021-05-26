@@ -22,24 +22,51 @@ namespace ServiceHost.Pages
         [TempData]
         public string LoginMessage { get; set; }
 
+        [TempData]
+        public string RegisterMessage { get; set; }
+
+        [BindProperty]
+        public LoginModel LoginModel { get; set; }
+
+        [BindProperty]
+        public RegisterAccount RegisterAccount { get; set; }
+
         public void OnGet()
         {
-            
+            LoginModel = new LoginModel();
         }
 
-        public IActionResult OnPostLogin(LoginModel command)
+        public IActionResult OnPostLogin()
         {
             var operationResult = new OperationResult();
-            if (ModelState.IsValid)
-            {
-                operationResult=_accountApplication.Login(command);
-                if (operationResult.IsSucceeded)
-                {
-                     return RedirectToPage("./Index");
-                }
 
-                LoginMessage = operationResult.Message;
+            operationResult = _accountApplication.Login(LoginModel);
+            if (operationResult.IsSucceeded)
+            {
+                return RedirectToPage("./Index");
             }
+
+            LoginMessage = operationResult.Message;
+
+            return Page();
+        }
+
+        public IActionResult OnPostRegister()
+        {
+            var operationResult = new OperationResult();
+
+            var createAccount = new CreateAccount()
+            {
+                Username = RegisterAccount.Username,
+                Password = RegisterAccount.Password,
+                RoleId = 2,
+                Mobile = RegisterAccount.Mobile,
+                Fullname = RegisterAccount.Fullname,
+            };
+            operationResult = _accountApplication.Register(createAccount);
+            if (!operationResult.IsSucceeded)
+                RegisterMessage = operationResult.Message;
+
 
             return Page();
         }
