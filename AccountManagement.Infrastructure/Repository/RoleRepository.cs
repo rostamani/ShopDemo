@@ -22,11 +22,23 @@ namespace AccountManagement.Infrastructure.Repository
 
         public EditRole GetDetails(long id)
         {
-            return _db.Roles.Select(x => new EditRole
+            var role= _db.Roles.Select(x => new EditRole
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                MappedPermissions=MapPermissions(x.Permissions)
             }).AsNoTracking().FirstOrDefault(x => x.Id == id);
+
+            if (role!=null)
+            {
+                role.Permissions = role.MappedPermissions.Select(x => x.Code).ToList();
+            }
+            return role;
+        }
+
+        private static List<PermissionDto> MapPermissions(List<Permission> permissions)
+        {
+            return permissions.Select(x => new PermissionDto(x.Name, x.Code)).ToList();
         }
 
         public List<RoleViewModel> GetRoles()

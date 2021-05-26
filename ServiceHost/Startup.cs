@@ -31,7 +31,7 @@ namespace ServiceHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages().AddRazorRuntimeCompilation().AddRazorPagesOptions(x =>
+            services.AddRazorPages().AddMvcOptions(x=>x.Filters.Add<SecurityPageFilter>()).AddRazorRuntimeCompilation().AddRazorPagesOptions(x =>
                 {
                     x.Conventions.AuthorizeAreaFolder("Admin", "/", "AdminArea");
                     x.Conventions.AuthorizeAreaFolder("Admin", "/Discount", "Discounts");

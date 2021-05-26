@@ -11,5 +11,6 @@ namespace _0_Framework.Application
         bool IsAuthenticated();
         string GetCurrentUserRole();
         AuthViewModel GetCurrentUserInfo();
+        List<int> GetPermissions();
     }
 }

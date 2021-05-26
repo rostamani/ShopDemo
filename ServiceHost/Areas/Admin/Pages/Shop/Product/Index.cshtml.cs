@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.ProductAgg;
 using ShopManagement.Application.Contracts.ProductCategory;
+using ShopManagement.Configuration.Permissions;
 
 namespace ServiceHost.Areas.Admin.Pages.Shop.Product
 {
@@ -26,12 +28,14 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Product
         public ProductSearchModel SearchModel;
         public SelectList Categories;
 
+        [NeedsPermission(ShopPermissions.ListProducts)]
         public void OnGet(ProductSearchModel searchModel)
         {
             Products = _productApplication.Search(searchModel);
             Categories=new SelectList(_productCategoryApplication.GetCategories(),"Id","Name");
         }
 
+        [NeedsPermission(ShopPermissions.EditProduct)]
         public IActionResult OnGetEdit(long id)
         {
             var product = _productApplication.GetDetails(id);
@@ -39,6 +43,7 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Product
             return Partial("Edit", product);
         }
 
+        [NeedsPermission(ShopPermissions.EditProduct)]
         public IActionResult OnPostEdit(EditProduct command)
         {
             var result = new OperationResult();
@@ -49,6 +54,7 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Product
             return new JsonResult(result);
         }
 
+        [NeedsPermission(ShopPermissions.CreateProduct)]
         public IActionResult OnGetCreate()
         {
             var product = new CreateProduct();
@@ -56,6 +62,7 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.Product
             return Partial("Create",product );
         }
 
+        [NeedsPermission(ShopPermissions.CreateProduct)]
         public IActionResult OnPostCreate(CreateProduct command)
         {
             var result = new OperationResult();

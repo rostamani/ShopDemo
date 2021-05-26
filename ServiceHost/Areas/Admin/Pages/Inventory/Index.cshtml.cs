@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using InventoryManagement.Application.Contracts.Inventory;
+using InventoryManagement.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,12 +28,14 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
         public InventorySearchModel SearchModel;
         public List<InventoryViewModel> Inventory;
 
+        [NeedsPermission(InventoryPermissions.ListInventory)]
         public void OnGet(InventorySearchModel searchModel)
         {
             Products=new SelectList(_productApplication.GetProducts(),"Id","Name");
             Inventory = _inventoryApplication.Search(searchModel);
         }
 
+        [NeedsPermission(InventoryPermissions.EditInventory)]
         public IActionResult OnGetEdit(long id)
         {
             var inventory = _inventoryApplication.GetDetails(id);
@@ -39,6 +43,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             return Partial("Edit", inventory);
         }
 
+        [NeedsPermission(InventoryPermissions.CreateInventory)]
         public IActionResult OnGetCreate()
         {
             var inventory = new CreateInventory();
@@ -46,6 +51,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             return Partial("Create", inventory);
         }
 
+        [NeedsPermission(InventoryPermissions.CreateInventory)]
         public IActionResult OnPostCreate(CreateInventory command)
         {
             var operationResult = new OperationResult();
@@ -57,6 +63,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             return new JsonResult(operationResult);
         }
 
+        [NeedsPermission(InventoryPermissions.EditInventory)]
         public IActionResult OnPostEdit(EditInventory command)
         {
             var operationResult = new OperationResult();
@@ -68,7 +75,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             return new JsonResult(operationResult);
         }
 
-
+        [NeedsPermission(InventoryPermissions.Increase)]
         public IActionResult OnGetIncrement(long id)
         {
             var increaseInventory = new IncreaseInventory()
@@ -77,7 +84,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             };
             return Partial("Increment",increaseInventory);
         }
-
+        [NeedsPermission(InventoryPermissions.Reduce)]
         public IActionResult OnGetDecrement(long id)
         {
             var decreaseInventory = new DecreaseInventory()
@@ -86,7 +93,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             };
             return Partial("Decrement", decreaseInventory);
         }
-
+        [NeedsPermission(InventoryPermissions.Increase)]
         public IActionResult OnPostIncrement(IncreaseInventory command)
         {
             var operationResult = new OperationResult();
@@ -96,7 +103,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             }
             return new JsonResult(operationResult);
         }
-
+        [NeedsPermission(InventoryPermissions.Reduce)]
         public IActionResult OnPostDecrement(DecreaseInventory command)
         {
             var operationResult = new OperationResult();
@@ -107,6 +114,7 @@ namespace ServiceHost.Areas.Admin.Pages.Inventory
             return new JsonResult(operationResult);
         }
 
+        [NeedsPermission(InventoryPermissions.OperationLog)]
         public IActionResult OnGetOperations(long id)
         {
             var operations = _inventoryApplication.GetOperations(id);

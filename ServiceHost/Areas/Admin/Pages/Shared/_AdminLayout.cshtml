@@ -1,5 +1,7 @@
 ﻿@using _0_Framework.Application
 @using _0_Framework.Infrastructure
+@using InventoryManagement.Configuration.Permissions
+@using ShopManagement.Configuration.Permissions
 @inject IAuthHelper _AuthHelper
 @{
     var currentUser = _AuthHelper.GetCurrentUserInfo();

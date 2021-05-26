@@ -16,6 +16,14 @@ namespace AccountManagement.Infrastructure.Mapping
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
 
             builder.HasMany(x => x.Accounts).WithOne(x => x.Role).HasForeignKey(x => x.RoleId);
+
+            builder.OwnsMany(x => x.Permissions, builder =>
+            {
+                builder.HasKey(x => x.Id);
+                builder.ToTable("Permissions");
+                builder.Ignore(x => x.Name);
+                builder.WithOwner(x => x.Role).HasForeignKey(x => x.RoleId);
+            });
         }
     }
 }
