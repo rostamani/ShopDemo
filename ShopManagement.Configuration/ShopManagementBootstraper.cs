@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using _0_Framework.Infrastructure;
+using _01_ShopQuery.Contracts.Cart;
 using _01_ShopQuery.Contracts.Product;
 using _01_ShopQuery.Contracts.ProductCategory;
 using _01_ShopQuery.Query;
@@ -47,6 +48,7 @@ namespace ShopManagement.Configuration
             services.AddTransient<ISlideQuery, SlideQuery>();
             services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
             services.AddTransient<IProductQuery, ProductQuery>();
+            services.AddTransient<ICartQuery, CartQuery>();
 
             services.AddTransient<IPermissionExposer, ShopPermissionExposer>();
 

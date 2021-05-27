@@ -8,6 +8,7 @@ using _01_ShopQuery.Contracts.ProductCategory;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure;
@@ -111,7 +112,7 @@ namespace _01_ShopQuery.Query
                     
                     product.IsInStock = inventory.IsInStock;
                     product.Price = inventory.Price.ToMoney();
-
+                    product.DoublePrice = inventory.Price;
                     var discount = _discountContext.CustomerDiscounts
                         .Where(d => d.StartDate < DateTime.Now && d.EndDate > DateTime.Now)
                         .Select(d => new { ProductId = d.ProductId, DiscountRate = d.DiscountRate, EndDate = d.EndDate })
@@ -190,6 +191,18 @@ namespace _01_ShopQuery.Query
                 }
                 
             return products.ToList();
+        }
+
+        public List<CartItem> CheckCartItemStatus(List<CartItem> cartItems)
+        {
+            var inventory = _inventoryContext.Inventory.ToList();
+            foreach (var cartItem in cartItems.Where(item=>inventory.Any(x=>x.ProductId==item.Id && x.IsInStock)))
+            {
+                var itemInventory = inventory.FirstOrDefault(x => x.ProductId == cartItem.Id);
+                cartItem.IsInStock = itemInventory.CalculateCurrentCount() >= cartItem.Count;
+            }
+
+            return cartItems;
         }
 
 

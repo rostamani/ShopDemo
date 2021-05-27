@@ -9,6 +9,7 @@ namespace _0_Framework.Infrastructure
         public const string Admin = "1";
         public const string User = "2";
         public const string Operator = "3";
+        public const string Colleague = "4";
 
         public static string GetRoleBy(long id)
         {
@@ -20,6 +21,8 @@ namespace _0_Framework.Infrastructure
                     return "کاربر عادی";
                 case 3:
                     return "اپراتور سیستم";
+                case 4:
+                    return "همکار";
                 default:
                     return "";
             }

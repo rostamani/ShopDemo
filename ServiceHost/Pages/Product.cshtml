@@ -167,19 +167,30 @@
                                         }
 
 
-                                        <div class="product-actions">
-                                            <div class="quantity-selection">
-                                                <label>تعداد</label>
-                                                <input type="number" value="1" min="1">
-                                            </div>
+                                        @if (Model.Product.IsInStock)
+                                        {
+                                            <div class="product-actions">
+                                                <div class="quantity-selection">
+                                                    <label>تعداد</label>
+                                                    <input type="number" value="1" min="1" id="productCount">
+                                                </div>
 
+                                                <div class="product-buttons">
+                                                    <a class="cart-btn" onclick="addToCart('@Model.Product.Id', '@Model.Product.Name', '@Model.Product.Price', '@Model.Product.Picture','@Model.Product.Slug')">
+                                                        <i class="ion-bag"></i> افزودن به سبد خرید
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        }
+                                        else
+                                        {
                                             <div class="product-buttons">
-                                                <a class="cart-btn" href="#">
-                                                    <i class="ion-bag"></i> افزودن به سبد خرید
+                                                <a class="cart-btn">
+                                                    <i class="ion-bag"></i> موجود شد به من اطلاع بده!
                                                 </a>
                                             </div>
-
-                                        </div>
+                                        }
 
                                         <div class="social-share-buttons mt-20">
                                             <h5>این محصول را به اشتراک بگذارید.</h5>

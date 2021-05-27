@@ -14,6 +14,7 @@ namespace _01_ShopQuery.Contracts.Product
         public string Keywords { get; set; }
         public string Description { get;  set; }
         public string ShortDescription { get;  set; }
+        public double DoublePrice { get; set; }
         public string Price { get; set; }
         public string PriceWithDiscount { get; set; }
         public int DiscountRate { get; set; }
